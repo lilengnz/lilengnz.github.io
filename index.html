@@ -1,0 +1,213 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Portafolio</title>
+
+<style>
+body {
+    background: linear-gradient(to bottom, #F3E8FF, #E9D5FF);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #6A0DAD;
+}
+
+.info {
+    background: rgba(255,255,255,0.5);
+    padding: 15px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+marquee {
+    background-color: #D8B4FE;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+button {
+    background-color: #C084FC;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button.activo {
+    background-color: #4C1D95;
+}
+
+#resultado {
+    margin: 20px auto;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    max-width: 700px;
+}
+
+/* GALERÍA */
+.galeria {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.galeria img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.galeria img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px purple;
+}
+
+/* CARRUSEL */
+.carrusel {
+    display: none;
+}
+
+.carrusel img {
+    width: 300px;
+    margin-top: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* BLOG */
+iframe {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Mi Portafolio JavaScript</h1>
+
+<div class="info">
+    <p><strong>Nombre:</strong> Renata Flores, Lily Gonzalez, Ruby Hernández, Dulce Hernández</p>
+    <p><strong>Campus:</strong> UVM Lomas Verdes</p>
+    <p><strong>Docente:</strong> Hernández Carillo Patricia</p>
+</div>
+
+<marquee>💜 Promoviendo la igualdad de género - ODS 5 💜</marquee>
+
+<div>
+    <button onclick="mostrarContenido('info', this)">¿Qué es?</button>
+    <button onclick="mostrarContenido('importancia', this)">Importancia</button>
+    <button onclick="mostrarContenido('acciones', this)">Acciones</button>
+    <button onclick="mostrarContenido('quienes', this)">¿Quiénes somos?</button>
+    <button onclick="mostrarContenido('contacto', this)">Contáctanos</button>
+    <button onclick="mostrarGaleria(this)">Galería</button>
+    <button onclick="mostrarContenido('blog', this)">BLOG</button>
+</div>
+
+<div id="resultado">Haz clic en un botón</div>
+
+<!-- GALERÍA -->
+<div class="galeria" id="galeria">
+    <img src="imagenes/imagen1.jpeg">
+    <img src="imagenes/imagen2.jpeg">
+    <img src="imagenes/imagen3.jpeg">
+    <img src="imagenes/imagen4.jpeg">
+    <img src="imagenes/imagen5.jpeg">
+    <img src="imagenes/imagen6.jpeg">
+</div>
+
+<!-- CARRUSEL -->
+<div class="carrusel" id="carrusel">
+    <h2 style="color:#6A0DAD;">Carrusel</h2>
+    <img id="imgCarrusel" src="img/img1.jpg" onclick="cambiarImagen()">
+</div>
+
+<script>
+
+// ELEMENTOS
+const resultado = document.getElementById("resultado");
+const galeria = document.getElementById("galeria");
+const carrusel = document.getElementById("carrusel");
+const imgCarrusel = document.getElementById("imgCarrusel");
+
+// CONTENIDO
+const contenidos = {
+    info: "La igualdad de género significa que todos tienen los mismos derechos.",
+    importancia: "Es fundamental para una sociedad justa.",
+    acciones: "Podemos respetar, educar y actuar contra la discriminación.",
+    quienes: "Somos estudiantes comprometidas con el ODS 5.",
+    contacto: "📩 ODS5_IDG@gmail.com <br> 📞 55 3210 9876",
+
+    blog: `
+        <h3>🎥 Video</h3>
+        <iframe src="https://www.youtube.com/embed/pDRWUjYTMFg" allowfullscreen></iframe>
+
+        <h3>📄 Presentación (PDF)</h3>
+        <iframe src="https://drive.google.com/file/d/14245NSvt4khm9U6HX0NOgnnJk3-yyMpI/view?usp=sharing"></iframe>
+    `
+};
+
+// FUNCIONES
+function mostrarContenido(clave, btn) {
+    galeria.style.display = "none";
+    carrusel.style.display = "none";
+
+    document.querySelectorAll("button").forEach(b => b.classList.remove("activo"));
+    btn.classList.add("activo");
+
+    resultado.innerHTML = contenidos[clave];
+}
+
+function mostrarGaleria(btn) {
+    resultado.innerHTML = "Aquí está la galería 👇";
+    galeria.style.display = "grid";
+    carrusel.style.display = "block";
+
+    document.querySelectorAll("button").forEach(b => b.classList.remove("activo"));
+    btn.classList.add("activo");
+}
+
+// CARRUSEL
+// CARRUSEL
+let imagenes = [
+  "Imagenes1/imagen7.jpeg",
+  "Imagenes1/imagen8.jpeg",
+  "Imagenes1/imagen9.jpeg",
+  "Imagenes1/imagen10.jpeg",
+  "Imagenes1/imagen11.jpeg",
+  "Imagenes1/imagen12.jpeg"
+];
+
+let index = 0;
+
+function cambiarImagen() {
+    index = (index + 1) % imagenes.length;
+    // Esto cambia la foto en el recuadro del carrusel
+    imgCarrusel.src = imagenes[index];
+}
+
+function cambiarImagen() {
+    index = (index + 1) % imagenes.length;
+    imgCarrusel.src = imagenes[index];
+}
+
+</script>
+
+</body>
+</html>
